@@ -10,7 +10,7 @@ import dbConfig from './db_config';
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof dbConfig>) => {
         const { db, env } = configService;
-        const isProduction = env === process.env.DATABASE_ENV
+        const isProduction = env === process.env.DATABASE_ENV || 'local'
         const uriDb = isProduction
           ? `mongodb+srv://${db.user}:${db.password}@${db.cluster}.mongodb.net/${db.atlas}?retryWrites=true&w=majority&appName=continental`
           : `${db.connection}${db.host}/${db.name}`;
